@@ -7,3 +7,7 @@
         </label>
     </div>
 </div>
+<div *ngIf="!hero">
+    <h4>Hero does not exist.</h4>
+</div>
+<button (click)="goBack()">Back</button>
