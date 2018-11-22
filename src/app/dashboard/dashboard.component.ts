@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { Observable } from 'rxjs';
+import { take, switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,16 +10,19 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  heroes$: Observable<Hero[]>;
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService) {
+    this.heroes$ = heroService.heroes$.pipe(
+      map(list => list.slice(0, 4))
+    );
+  }
 
   ngOnInit() {
     this.getHeroes();
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+    this.heroService.getHeroes();
   }
 }
