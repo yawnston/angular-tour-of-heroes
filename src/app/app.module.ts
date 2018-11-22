@@ -13,6 +13,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroCreationComponent } from './hero-creation/hero-creation.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeroCreationComponent } from './hero-creation/hero-creation.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    HeroCreationComponent
+    HeroCreationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import { HeroCreationComponent } from './hero-creation/hero-creation.component';
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false, put204: false }
+      // TODO: make a PR for passThruUnknownUrl
+      InMemoryDataService, { dataEncapsulation: false, put204: false, passThruUnknownUrl: true }
     )
   ],
   providers: [],
