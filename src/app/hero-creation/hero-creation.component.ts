@@ -20,7 +20,7 @@ export class HeroCreationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.heroService.addHero({ name: this.model.name } as Hero);
-    this.router.navigateByUrl('/heroes');
+    this.router.navigateByUrl('/heroes', {skipLocationChange: true});
   }
 
   // TODO: Remove this when we're done

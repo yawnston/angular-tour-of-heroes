@@ -30,7 +30,7 @@ import { HeroCreationComponent } from './hero-creation/hero-creation.component';
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, put204: false }
     )
   ],
   providers: [],
