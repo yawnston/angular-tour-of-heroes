@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -23,10 +22,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.model.email, this.model.password)
-      .subscribe(() => {
-        console.log(`User ${this.model.email} is logged in`);
-        // this.router.navigateByUrl('/');
-      });
+    this.authService.login(this.model.email, this.model.password);
   }
 }
