@@ -98,7 +98,7 @@ export class HeroService {
     });
 
     return this.heroes$.pipe(
-      mergeMap(item => item),
+      switchMap(item => item),
       filter(item => item.id === hero.id),
       take(1)
     );

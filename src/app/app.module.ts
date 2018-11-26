@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -13,6 +14,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroCreationComponent } from './hero-creation/hero-creation.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { HeroCreationComponent } from './hero-creation/hero-creation.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    HeroCreationComponent
+    HeroCreationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,8 +34,16 @@ import { HeroCreationComponent } from './hero-creation/hero-creation.component';
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false, put204: false }
-    )
+      // TODO: make a PR for passThruUnknownUrl
+      InMemoryDataService, { dataEncapsulation: false, put204: false, passThruUnknownUrl: true }
+    ),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: AuthService.tokenGetter,
+        whitelistedDomains: ['localhost'],
+        blacklistedRoutes: ['localhost/oauth/token']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
